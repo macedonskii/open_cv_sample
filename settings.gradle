@@ -1,0 +1,2 @@
+rootProject.name='OpenCV face detector'
+include ':app', ':opencv'
