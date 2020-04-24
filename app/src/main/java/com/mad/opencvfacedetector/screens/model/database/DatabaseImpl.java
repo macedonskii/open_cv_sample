@@ -38,7 +38,7 @@ public class DatabaseImpl implements Database {
     }
 
     @Override
-    public List<Image> getImagesPaths() {
+    public List<Image> getImages() {
         return imagesDao.getImages();
     }
 

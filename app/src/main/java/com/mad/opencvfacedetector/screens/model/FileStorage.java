@@ -6,7 +6,7 @@ import org.opencv.core.Mat;
 
 public interface FileStorage {
 
-    String saveTmpFile(Mat fileMatrix);
+    String saveFile(Mat fileMatrix);
 
     Bitmap getTmpBitmap();
 

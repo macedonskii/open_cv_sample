@@ -4,8 +4,10 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
+import org.opencv.android.Utils;
 import org.opencv.core.Mat;
 import org.opencv.imgcodecs.Imgcodecs;
+import org.opencv.imgproc.Imgproc;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
@@ -19,12 +21,15 @@ public class FileStorageImpl implements FileStorage {
     }
 
     @Override
-    public String saveTmpFile(Mat fileMatrix) {
+    public String saveFile(Mat fileMatrix) {
         Mat dst = new Mat();
-//        Imgproc.cvtColor(fileMatrix, dst, Imgproc.2RGB);
+
+//        Utils.matToBitmap();
+
+        Imgproc.cvtColor(fileMatrix, dst, Imgproc.COLOR_BGR2RGB);
         // TODO: 24.04.2020 NEED TO FIX COLORS!
         File file = createFile();
-        Imgcodecs.imwrite(file.getAbsolutePath(), fileMatrix);
+        Imgcodecs.imwrite(file.getAbsolutePath(), dst);
         return file.getAbsolutePath();
     }
 

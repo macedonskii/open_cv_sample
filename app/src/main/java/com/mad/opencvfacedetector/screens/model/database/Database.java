@@ -13,7 +13,7 @@ public interface Database {
 
     long saveImage(String path, List<RecognizedRect> rects);
 
-    List<Image> getImagesPaths();
+    List<Image> getImages();
 
     void deleteImage(int id);
 

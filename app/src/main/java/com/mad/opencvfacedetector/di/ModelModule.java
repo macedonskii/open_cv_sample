@@ -3,6 +3,7 @@ package com.mad.opencvfacedetector.di;
 import android.content.Context;
 
 import com.mad.opencvfacedetector.screens.details.DetailsContract;
+import com.mad.opencvfacedetector.screens.list.ListContract;
 import com.mad.opencvfacedetector.screens.model.BitmapUtils;
 import com.mad.opencvfacedetector.screens.model.BitmapUtilsImpl;
 import com.mad.opencvfacedetector.screens.model.FileStorage;
@@ -55,6 +56,12 @@ public class ModelModule {
     @Provides
     @Singleton
     public DetailsContract.DetailsModel getDetailsModel(Model model) {
+        return model;
+    }
+
+    @Provides
+    @Singleton
+    public ListContract.ListModel getListModel(Model model) {
         return model;
     }
 
