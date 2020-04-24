@@ -8,11 +8,11 @@ import androidx.annotation.Nullable;
 
 public class ImageData {
 
-    private Integer id;
+    private Long id;
     private Bitmap original;
     private List<Bitmap> recognizedImages;
 
-    public ImageData(Integer id, Bitmap original, List<Bitmap> recognizedImages) {
+    public ImageData(Long id, Bitmap original, List<Bitmap> recognizedImages) {
         this.id = id;
         this.original = original;
         this.recognizedImages = recognizedImages;
@@ -31,7 +31,7 @@ public class ImageData {
     }
 
     @Nullable
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 }

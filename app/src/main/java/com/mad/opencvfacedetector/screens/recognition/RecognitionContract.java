@@ -6,12 +6,13 @@ import com.mad.opencvfacedetector.base.BaseView;
 import org.opencv.core.Mat;
 import org.opencv.core.Rect;
 
-import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Single;
 
 public interface RecognitionContract {
 
     interface RecognitionView extends BaseView {
-        void showDetailsScreen();
+
+        void showDetailsScreen(Long imageId);
     }
 
     interface RecognitionPresenter extends BasePresenter<RecognitionView> {
@@ -21,6 +22,6 @@ public interface RecognitionContract {
     }
 
     interface RecognitionModel {
-        Completable saveTmpImage(Mat rgba, Rect[] rects);
+        Single<Long> saveTmpImage(Mat rgba, Rect[] rects);
     }
 }

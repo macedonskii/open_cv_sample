@@ -10,6 +10,7 @@ import com.mad.opencvfacedetector.screens.model.FileStorageImpl;
 import com.mad.opencvfacedetector.screens.model.LocalStorage;
 import com.mad.opencvfacedetector.screens.model.LocalStorageImpl;
 import com.mad.opencvfacedetector.screens.model.Model;
+import com.mad.opencvfacedetector.screens.model.database.Database;
 import com.mad.opencvfacedetector.screens.recognition.RecognitionContract;
 
 import javax.inject.Singleton;
@@ -41,8 +42,8 @@ public class ModelModule {
 
     @Provides
     @Singleton
-    public Model getModel(FileStorage fileStorage, LocalStorage localStorage, BitmapUtils utils) {
-        return new Model(fileStorage, localStorage, utils);
+    public Model getModel(FileStorage fileStorage, LocalStorage localStorage, BitmapUtils utils, Database database) {
+        return new Model(fileStorage, localStorage, utils, database);
     }
 
     @Provides

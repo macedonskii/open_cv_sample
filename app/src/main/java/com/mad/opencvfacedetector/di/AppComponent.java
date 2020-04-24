@@ -10,7 +10,7 @@ import javax.inject.Singleton;
 import dagger.Component;
 
 @Singleton
-@Component(modules = {ContextModule.class, ModelModule.class})
+@Component(modules = {ContextModule.class, ModelModule.class, DatabaseModule.class})
 public interface AppComponent {
 
     void inject(RecognitionPresenter recognitionPresenter);

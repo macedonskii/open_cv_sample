@@ -94,7 +94,7 @@ public class ImageRecognitionActivity extends BaseActivity implements Recognitio
     }
 
     @Override
-    public void showDetailsScreen() {
-        startActivity(DetailsActivity.getIntent(this));
+    public void showDetailsScreen(Long imageId) {
+        startActivity(DetailsActivity.getIntent(this, imageId));
     }
 }

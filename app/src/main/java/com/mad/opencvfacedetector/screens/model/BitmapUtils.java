@@ -2,11 +2,11 @@ package com.mad.opencvfacedetector.screens.model;
 
 import android.graphics.Bitmap;
 
-import com.mad.opencvfacedetector.screens.details.ImageData;
+import com.mad.opencvfacedetector.screens.model.database.data.RecognizedRect;
 
-import org.opencv.core.Rect;
+import java.util.List;
 
 public interface BitmapUtils {
 
-    ImageData provideRecognizedImages(Bitmap bitmap, Rect[] rects);
+    List<Bitmap> provideRecognizedImages(Bitmap bitmap, List<RecognizedRect> list);
 }

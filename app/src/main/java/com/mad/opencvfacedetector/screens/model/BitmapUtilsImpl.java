@@ -2,9 +2,7 @@ package com.mad.opencvfacedetector.screens.model;
 
 import android.graphics.Bitmap;
 
-import com.mad.opencvfacedetector.screens.details.ImageData;
-
-import org.opencv.core.Rect;
+import com.mad.opencvfacedetector.screens.model.database.data.RecognizedRect;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,12 +10,12 @@ import java.util.List;
 public class BitmapUtilsImpl implements BitmapUtils {
 
     @Override
-    public ImageData provideRecognizedImages(Bitmap bitmap, Rect[] rects) {
+    public List<Bitmap> provideRecognizedImages(Bitmap bitmap, List<RecognizedRect> list) {
         List<Bitmap> recognizedImages = new ArrayList<>();
-        for (Rect rect : rects) {
-            recognizedImages.add(Bitmap.createBitmap(bitmap, rect.x, rect.y, rect.width, rect.height));
+        for (RecognizedRect rect : list) {
+            recognizedImages.add(Bitmap.createBitmap(bitmap, rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight()));
         }
 
-        return new ImageData(bitmap, recognizedImages);
+        return recognizedImages;
     }
 }

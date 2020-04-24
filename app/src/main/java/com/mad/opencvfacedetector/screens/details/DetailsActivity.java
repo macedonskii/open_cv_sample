@@ -23,7 +23,7 @@ public class DetailsActivity extends BaseActivity implements DetailsContract.Det
         return new Intent(context, DetailsActivity.class);
     }
 
-    public static Intent getIntent(Context context, int imageId) {
+    public static Intent getIntent(Context context, long imageId) {
         return getIntent(context).putExtra(EXTRA_ID, imageId);
     }
 
