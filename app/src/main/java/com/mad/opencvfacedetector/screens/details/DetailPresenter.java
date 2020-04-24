@@ -17,7 +17,7 @@ public class DetailPresenter extends BasePresenterImpl<DetailsContract.DetailsVi
     }
 
     @Override
-    public void onCreate(int imageId) {
+    public void onCreate(long imageId) {
         Disposable subscribe = model.loadImageData(imageId).subscribe(imageDataSingle -> {getView().showImageData(imageDataSingle);}, this::handleThrowable);
         compositeDisposable.add(subscribe);
     }

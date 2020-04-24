@@ -9,7 +9,7 @@ import java.util.List;
 public interface Database {
 
     List<ImageAndRects> getImagesAndRects();
-    ImageAndRects getImagesAndRect(int id);
+    ImageAndRects getImagesAndRect(long id);
 
     long saveImage(String path, List<RecognizedRect> rects);
 

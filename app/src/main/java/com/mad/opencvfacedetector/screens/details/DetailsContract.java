@@ -3,7 +3,6 @@ package com.mad.opencvfacedetector.screens.details;
 import com.mad.opencvfacedetector.base.BasePresenter;
 import com.mad.opencvfacedetector.base.BaseView;
 
-import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Single;
 
 public interface DetailsContract {
@@ -15,11 +14,11 @@ public interface DetailsContract {
     }
 
     interface DetailsPresenter extends BasePresenter<DetailsView> {
-        void onCreate(int imageId);
+        void onCreate(long imageId);
     }
 
     interface DetailsModel {
-        @io.reactivex.rxjava3.annotations.NonNull Single<ImageData> loadImageData(int id);
+        @io.reactivex.rxjava3.annotations.NonNull Single<ImageData> loadImageData(long id);
 
 
     }

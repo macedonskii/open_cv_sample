@@ -17,7 +17,7 @@ public class DatabaseImpl implements Database {
     }
 
     @Override
-    public ImageAndRects getImagesAndRect(int id) {
+    public ImageAndRects getImagesAndRect(long id) {
         return imagesDao.getImageAndRects(id);
     }
 

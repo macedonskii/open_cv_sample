@@ -43,7 +43,7 @@ public class DetailsActivity extends BaseActivity implements DetailsContract.Det
 
         presenter = new DetailPresenter();
         presenter.attachView(this);
-        presenter.onCreate(getIntent().getIntExtra(EXTRA_ID, -1));
+        presenter.onCreate(getIntent().getLongExtra(EXTRA_ID, -1));
     }
 
     @Override

@@ -19,7 +19,7 @@ public interface ImagesDao {
 
     @Transaction
     @Query("SELECT * FROM images WHERE id = :id")
-    ImageAndRects getImageAndRects(int id);
+    ImageAndRects getImageAndRects(long id);
 
     @Query("SELECT * FROM images")
     List<Image> getImages();

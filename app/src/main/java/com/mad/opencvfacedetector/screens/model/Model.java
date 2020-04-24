@@ -13,9 +13,11 @@ import org.opencv.core.Rect;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Single;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class Model implements RecognitionContract.RecognitionModel, DetailsContract.DetailsModel {
 
@@ -39,13 +41,16 @@ public class Model implements RecognitionContract.RecognitionModel, DetailsContr
     }
 
     @Override
-    public @NonNull Single<ImageData> loadImageData(int id) {
+    public @NonNull Single<ImageData> loadImageData(long id) {
         return Single.just(id)
                 .map(database::getImagesAndRect)
                 .map(data -> {
                     Bitmap bitmap = fileStorage.getBitmap(data.getImage().getPath());
                     List<Bitmap> list = utils.provideRecognizedImages(bitmap, data.getRects());
                     return new ImageData(data.getImage().getId(), bitmap, list);
-                });
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                ;
     }
 }
