@@ -16,7 +16,6 @@ public interface RecognitionContract {
 
         void disableCamera();
 
-        void enableCamera();
     }
 
     interface RecognitionPresenter extends BasePresenter<RecognitionView> {

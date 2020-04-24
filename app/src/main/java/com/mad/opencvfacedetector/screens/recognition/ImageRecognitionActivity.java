@@ -103,8 +103,4 @@ public class ImageRecognitionActivity extends BaseActivity implements Recognitio
         cameraView.disableView();
     }
 
-    @Override
-    public void enableCamera() {
-        cameraView.enableView();
-    }
 }
