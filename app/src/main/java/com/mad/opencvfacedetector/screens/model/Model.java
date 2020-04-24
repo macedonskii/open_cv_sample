@@ -40,7 +40,9 @@ public class Model implements RecognitionContract.RecognitionModel, DetailsContr
     public Single<Long> saveTmpImage(Mat rgba, Rect[] rects) {
         return Single.just(rgba)
                 .map(fileStorage::saveFile)
-                .zipWith(Observable.fromArray(rects).map(rect -> new RecognizedRect(rect.x, rect.y, rect.width, rect.height)).toList(), database::saveImage);
+                .zipWith(Observable.fromArray(rects).map(rect -> new RecognizedRect(rect.x, rect.y, rect.width, rect.height)).toList(), database::saveImage)
+                .compose(applySchedulers())
+                ;
     }
 
     @Override

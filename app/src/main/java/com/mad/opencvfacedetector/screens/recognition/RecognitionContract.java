@@ -13,12 +13,17 @@ public interface RecognitionContract {
     interface RecognitionView extends BaseView {
 
         void showDetailsScreen(Long imageId);
+
+        void disableCamera();
+
+        void enableCamera();
     }
 
     interface RecognitionPresenter extends BasePresenter<RecognitionView> {
 
 
         void onFaceDetected(Mat rgba, Rect[] rects);
+
     }
 
     interface RecognitionModel {

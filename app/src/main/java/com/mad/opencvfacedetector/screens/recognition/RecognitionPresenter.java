@@ -14,6 +14,7 @@ public class RecognitionPresenter extends BasePresenterImpl<RecognitionContract.
 
     @Inject
     RecognitionContract.RecognitionModel model;
+    private boolean processRun;
 
     public RecognitionPresenter() {
         App.getComponent().inject(this);
@@ -21,7 +22,18 @@ public class RecognitionPresenter extends BasePresenterImpl<RecognitionContract.
 
     @Override
     public void onFaceDetected(Mat rgba, Rect[] rects) {
-        Disposable subscribe = model.saveTmpImage(rgba, rects).subscribe(getView()::showDetailsScreen, this::handleThrowable);
+        if (processRun) {
+            return;
+        }
+        processRun = true;
+
+        Disposable subscribe = model.saveTmpImage(rgba, rects)
+                .doFinally(() -> processRun = false)
+                .subscribe(imageId -> {
+                    getView().disableCamera();
+                    getView().showDetailsScreen(imageId);
+                }, this::handleThrowable);
         compositeDisposable.add(subscribe);
     }
+
 }

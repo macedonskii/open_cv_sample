@@ -66,7 +66,7 @@ public class RecognitionHandler implements CameraBridgeViewBase.CvCameraViewList
         Mat rgba = inputFrame.rgba();
         Rect[] rects = matOfRect.toArray();
         if (rects.length != 0) {
-            listener.onRecognition(rgba, rects);
+            listener.onRecognition(rgba.clone(), rects);
         }
         for (Rect rect : rects) {
             Imgproc.rectangle(rgba, rect.tl(), rect.br(), FACE_RECT_COLOR, 3);

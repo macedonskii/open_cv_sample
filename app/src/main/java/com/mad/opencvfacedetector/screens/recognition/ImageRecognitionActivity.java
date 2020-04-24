@@ -97,4 +97,14 @@ public class ImageRecognitionActivity extends BaseActivity implements Recognitio
     public void showDetailsScreen(Long imageId) {
         startActivity(DetailsActivity.getIntent(this, imageId));
     }
+
+    @Override
+    public void disableCamera() {
+        cameraView.disableView();
+    }
+
+    @Override
+    public void enableCamera() {
+        cameraView.enableView();
+    }
 }
