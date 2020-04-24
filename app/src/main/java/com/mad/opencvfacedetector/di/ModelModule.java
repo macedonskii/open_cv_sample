@@ -2,6 +2,9 @@ package com.mad.opencvfacedetector.di;
 
 import android.content.Context;
 
+import com.mad.opencvfacedetector.screens.details.DetailsContract;
+import com.mad.opencvfacedetector.screens.model.BitmapUtils;
+import com.mad.opencvfacedetector.screens.model.BitmapUtilsImpl;
 import com.mad.opencvfacedetector.screens.model.FileStorage;
 import com.mad.opencvfacedetector.screens.model.FileStorageImpl;
 import com.mad.opencvfacedetector.screens.model.LocalStorage;
@@ -11,12 +14,11 @@ import com.mad.opencvfacedetector.screens.recognition.RecognitionContract;
 
 import javax.inject.Singleton;
 
+import dagger.Module;
 import dagger.Provides;
 
+@Module
 public class ModelModule {
-
-    private FileStorage storage;
-    private LocalStorage localStorage;
 
 
     @Provides
@@ -33,13 +35,25 @@ public class ModelModule {
 
     @Provides
     @Singleton
-    public Model getModel(FileStorage fileStorage, LocalStorage localStorage) {
-        return new Model(fileStorage, localStorage);
+    public BitmapUtils getBitmapUtils() {
+        return new BitmapUtilsImpl();
     }
 
     @Provides
     @Singleton
-    public RecognitionContract.RecognitionModel getLocalStorage(Model model) {
+    public Model getModel(FileStorage fileStorage, LocalStorage localStorage, BitmapUtils utils) {
+        return new Model(fileStorage, localStorage, utils);
+    }
+
+    @Provides
+    @Singleton
+    public RecognitionContract.RecognitionModel getRecognitionModel(Model model) {
+        return model;
+    }
+
+    @Provides
+    @Singleton
+    public DetailsContract.DetailsModel getDetailsModel(Model model) {
         return model;
     }
 
