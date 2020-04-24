@@ -24,7 +24,7 @@ public class FileStorageImpl implements FileStorage {
         Mat dst = new Mat();
 //        Imgproc.cvtColor(fileMatrix, dst, Imgproc.2RGB);
         // TODO: 24.04.2020 NEED TO FIX COLORS!
-        Imgcodecs.imwrite(getTmpFile().getAbsolutePath(), dst);
+        Imgcodecs.imwrite(getTmpFile().getAbsolutePath(), fileMatrix);
     }
 
     private File getTmpFile() {
@@ -35,7 +35,6 @@ public class FileStorageImpl implements FileStorage {
     public Bitmap getTmpBitmap() {
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-//        return BitmapFactory.decodeFile(getTmpFile().getAbsolutePath(), options);
-        return BitmapFactory.decodeFile(getTmpFile().getAbsolutePath());
+        return BitmapFactory.decodeFile(getTmpFile().getAbsolutePath(), options);
     }
 }

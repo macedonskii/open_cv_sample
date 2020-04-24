@@ -7,12 +7,17 @@ import com.mad.opencvfacedetector.screens.details.ImageData;
 import org.opencv.core.Rect;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class BitmapUtilsImpl implements BitmapUtils {
 
     @Override
     public ImageData provideRecognizedImages(Bitmap bitmap, Rect[] rects) {
-        // TODO: 22.04.2020 LATER!
-        return new ImageData(bitmap, new ArrayList<>());
+        List<Bitmap> recognizedImages = new ArrayList<>();
+        for (Rect rect : rects) {
+            recognizedImages.add(Bitmap.createBitmap(bitmap, rect.x, rect.y, rect.width, rect.height));
+        }
+
+        return new ImageData(bitmap, recognizedImages);
     }
 }
