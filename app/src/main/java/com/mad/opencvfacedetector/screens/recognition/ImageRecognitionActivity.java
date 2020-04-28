@@ -45,7 +45,7 @@ public class ImageRecognitionActivity extends BaseActivity implements Recognitio
         });
         openCvLoader = new OpenCvLoader(() -> {
             recognitionHandler.onOpenCvLoaded();
-            if (checkPermission()) {
+            if (permissionGranted()) {
                 initCamera();
             }
         });
@@ -54,26 +54,27 @@ public class ImageRecognitionActivity extends BaseActivity implements Recognitio
             return;
         }
 
-        checkPermission();
+        if (permissionGranted()) {
+            return;
+        }
+
+        ActivityCompat.requestPermissions(this, new String[]{(Manifest.permission.CAMERA)}, CAMERA_REQUEST);
     }
 
-    private boolean checkPermission() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-                != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{(Manifest.permission.CAMERA)}, CAMERA_REQUEST);
-            return false;
-        }
-        return true;
+    private boolean permissionGranted() {
+        return ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED;
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        if (requestCode == CAMERA_REQUEST && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+        if (requestCode == CAMERA_REQUEST && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             initCamera();
             return;
         }
+
+        finish();
     }
 
     @Override
