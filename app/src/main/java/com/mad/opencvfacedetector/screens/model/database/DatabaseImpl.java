@@ -1,5 +1,7 @@
 package com.mad.opencvfacedetector.screens.model.database;
 
+import android.util.Log;
+
 import com.mad.opencvfacedetector.screens.model.database.data.Image;
 import com.mad.opencvfacedetector.screens.model.database.data.ImageAndRects;
 import com.mad.opencvfacedetector.screens.model.database.data.RecognizedRect;
@@ -8,6 +10,7 @@ import java.util.List;
 
 public class DatabaseImpl implements Database {
 
+    private static final String TAG = DatabaseImpl.class.getSimpleName();
     private ImagesDao imagesDao;
     private RecognizedRectDao recognizedRectDao;
 
@@ -45,5 +48,10 @@ public class DatabaseImpl implements Database {
     @Override
     public void deleteImage(int id) {
         imagesDao.delete(id);
+    }
+
+    @Override
+    public List<Image> getImagesV2(int offset, int itemsCount) {
+        return imagesDao.getImages(itemsCount, offset);
     }
 }

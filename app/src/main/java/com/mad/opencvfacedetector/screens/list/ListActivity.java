@@ -10,8 +10,11 @@ import com.mad.opencvfacedetector.screens.details.DetailsActivity;
 import com.mad.opencvfacedetector.screens.model.database.data.Image;
 
 import java.util.List;
+import java.util.concurrent.Executor;
 
 import androidx.annotation.Nullable;
+import androidx.paging.PagedList;
+import androidx.paging.PositionalDataSource;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -32,6 +35,7 @@ public class ListActivity extends BaseActivity implements ListContract.ListView 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
         presenter = new ListPresenter();
+        presenter.attachView(this);
 
         recyclerView = findViewById(R.id.rvImages);
         imagesAdapter = new ImagesListAdapter(presenter::onClickImage);
@@ -39,14 +43,19 @@ public class ListActivity extends BaseActivity implements ListContract.ListView 
         recyclerView.setAdapter(imagesAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(null));
 
+        ImageDataSource imageDataSource = new ImageDataSource(presenter::provideData);
 
-        presenter.attachView(this);
-        presenter.onCreate();
-    }
+        PagedList.Config config = new PagedList.Config.Builder()
+                .setEnablePlaceholders(false)
+                .setPageSize(10)
+                .build();
 
-    @Override
-    public void setData(List<Image> list) {
-        imagesAdapter.setItems(list);
+        PagedList<Image> build = new PagedList.Builder<>(imageDataSource, config)
+                .setFetchExecutor(Runnable::run)
+                .setNotifyExecutor(Runnable::run)
+                .build();
+
+        imagesAdapter.submitList(build);
     }
 
     @Override

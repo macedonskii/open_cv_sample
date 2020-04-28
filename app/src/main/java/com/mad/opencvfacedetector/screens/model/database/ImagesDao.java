@@ -31,4 +31,6 @@ public interface ImagesDao {
     @Query("DELETE FROM images WHERE id = :imageId")
     void delete(int imageId);
 
+    @Query("SELECT * FROM images LIMIT :pageSize OFFSET :pageIndex")
+    List<Image> getImages(int pageSize, int pageIndex);
 }

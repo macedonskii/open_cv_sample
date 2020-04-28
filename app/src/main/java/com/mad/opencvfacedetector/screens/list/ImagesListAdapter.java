@@ -13,16 +13,22 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
+import androidx.paging.PagedList;
+import androidx.paging.PagedListAdapter;
+import androidx.recyclerview.widget.AsyncDifferConfig;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class ImagesListAdapter extends RecyclerView.Adapter<ImagesListAdapter.ImageListHolder> {
+public class ImagesListAdapter extends PagedListAdapter<Image, ImagesListAdapter.ImageListHolder> {
 
     private ClickListener listener;
-    private List<Image> items;
+//    private List<Image> items;
 
     public ImagesListAdapter(ClickListener listener) {
+        super(imageCallback);
         this.listener = listener;
     }
+
 
     @NonNull
     @Override
@@ -32,13 +38,13 @@ public class ImagesListAdapter extends RecyclerView.Adapter<ImagesListAdapter.Im
 
     @Override
     public void onBindViewHolder(@NonNull ImageListHolder holder, int position) {
-        holder.bind(items.get(position), listener);
+        holder.bind(getItem(position), listener);
     }
-
-    @Override
-    public int getItemCount() {
-        return items == null ? 0 : items.size();
-    }
+//
+//    @Override
+//    public int getItemCount() {
+//        return items == null ? 0 : items.size();
+//    }
 
     protected static class ImageListHolder extends RecyclerView.ViewHolder {
         public ImageListHolder(@NonNull View itemView) {
@@ -54,12 +60,19 @@ public class ImagesListAdapter extends RecyclerView.Adapter<ImagesListAdapter.Im
         }
     }
 
-    public void setItems(List<Image> items) {
-        this.items = items;
-        notifyDataSetChanged();
-    }
-
     public interface ClickListener {
         void onClick(Image image);
     }
+
+    protected static DiffUtil.ItemCallback<Image> imageCallback = new DiffUtil.ItemCallback<Image>() {
+        @Override
+        public boolean areItemsTheSame(@NonNull Image oldItem, @NonNull Image newItem) {
+            return oldItem.getId() == newItem.getId();
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull Image oldItem, @NonNull Image newItem) {
+            return oldItem.getPath().equals(newItem.getPath());
+        }
+    };
 }

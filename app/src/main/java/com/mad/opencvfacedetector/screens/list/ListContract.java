@@ -11,18 +11,20 @@ import io.reactivex.rxjava3.core.Single;
 public interface ListContract {
 
     interface ListView extends BaseView {
-        void setData(List<Image> list);
 
         void showDetailsScreen(long id);
     }
 
     interface ListPresenter extends BasePresenter<ListView> {
-        void onCreate();
 
         void onClickImage(Image image);
+
+        void provideData(int offset, int itemsCount, ImageDataSource.DataCallback callback);
     }
 
     interface ListModel {
         Single<List<Image>> loadData();
+
+        Single<List<Image>> loadImages(int offset, int itemsCount);
     }
 }

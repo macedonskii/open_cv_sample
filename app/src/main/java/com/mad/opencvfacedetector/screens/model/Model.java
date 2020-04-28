@@ -66,6 +66,12 @@ public class Model implements RecognitionContract.RecognitionModel, DetailsContr
                 ;
     }
 
+    @Override
+    public Single<List<Image>> loadImages(int offset, int itemsCount) {
+        return Single.fromCallable(() -> database.getImagesV2(offset, itemsCount))
+                .compose(applySchedulers());
+    }
+
     public <T> SingleTransformer<T, T> applySchedulers() {
         return upstream -> upstream.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());

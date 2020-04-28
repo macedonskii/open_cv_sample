@@ -6,6 +6,7 @@ import com.mad.opencvfacedetector.screens.model.database.data.Image;
 
 import javax.inject.Inject;
 
+import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.disposables.Disposable;
 
 public class ListPresenter extends BasePresenterImpl<ListContract.ListView> implements ListContract.ListPresenter {
@@ -18,13 +19,13 @@ public class ListPresenter extends BasePresenterImpl<ListContract.ListView> impl
     }
 
     @Override
-    public void onCreate() {
-        Disposable subscribe = model.loadData().subscribe(getView()::setData, this::handleThrowable);
-        compositeDisposable.add(subscribe);
+    public void onClickImage(Image image) {
+        getView().showDetailsScreen(image.getId());
     }
 
     @Override
-    public void onClickImage(Image image) {
-        getView().showDetailsScreen(image.getId());
+    public void provideData(int offset, int itemsCount, ImageDataSource.DataCallback callback) {
+        @NonNull Disposable subscribe = model.loadImages(offset, itemsCount).subscribe(callback::onDataLoaded, this::handleThrowable);
+        compositeDisposable.add(subscribe);
     }
 }

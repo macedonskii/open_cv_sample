@@ -6,6 +6,8 @@ import com.mad.opencvfacedetector.screens.model.database.data.RecognizedRect;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Single;
+
 public interface Database {
 
     List<ImageAndRects> getImagesAndRects();
@@ -17,4 +19,5 @@ public interface Database {
 
     void deleteImage(int id);
 
+    List<Image> getImagesV2(int offset, int itemsCount);
 }
