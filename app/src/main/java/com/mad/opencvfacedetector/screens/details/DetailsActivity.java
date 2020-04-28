@@ -51,4 +51,9 @@ public class DetailsActivity extends BaseActivity implements DetailsContract.Det
         ivContent.setImageBitmap(data.getOriginal());
         imagesAdapter.setItems(data.getRecognizedImages());
     }
+
+    @Override
+    public DetailsContract.DetailsPresenter getPresenter() {
+        return presenter;
+    }
 }

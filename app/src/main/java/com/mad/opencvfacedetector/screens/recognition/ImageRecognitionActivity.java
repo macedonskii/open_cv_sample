@@ -103,4 +103,8 @@ public class ImageRecognitionActivity extends BaseActivity implements Recognitio
         cameraView.disableView();
     }
 
+    @Override
+    public RecognitionContract.RecognitionPresenter getPresenter() {
+        return presenter;
+    }
 }

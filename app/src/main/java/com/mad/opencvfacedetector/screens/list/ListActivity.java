@@ -1,5 +1,6 @@
 package com.mad.opencvfacedetector.screens.list;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -50,7 +51,7 @@ public class ListActivity extends BaseActivity implements ListContract.ListView 
                 .setPageSize(10)
                 .build();
 
-        PagedList<Image> build = new PagedList.Builder<>(imageDataSource, config)
+        @SuppressLint("WrongThread") PagedList<Image> build = new PagedList.Builder<>(imageDataSource, config)
                 .setFetchExecutor(Runnable::run)
                 .setNotifyExecutor(Runnable::run)
                 .build();
@@ -61,5 +62,10 @@ public class ListActivity extends BaseActivity implements ListContract.ListView 
     @Override
     public void showDetailsScreen(long id) {
         startActivity(DetailsActivity.getIntent(this, id));
+    }
+
+    @Override
+    public ListContract.ListPresenter getPresenter() {
+        return presenter;
     }
 }

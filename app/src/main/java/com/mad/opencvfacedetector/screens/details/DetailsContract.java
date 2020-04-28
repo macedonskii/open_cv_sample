@@ -9,8 +9,6 @@ public interface DetailsContract {
 
     interface DetailsView extends BaseView {
         void showImageData(ImageData data);
-
-//        void showImageData(@NonNull Single<ImageData> imageDataSingle);
     }
 
     interface DetailsPresenter extends BasePresenter<DetailsView> {
@@ -19,7 +17,6 @@ public interface DetailsContract {
 
     interface DetailsModel {
         @io.reactivex.rxjava3.annotations.NonNull Single<ImageData> loadImageData(long id);
-
 
     }
 }
